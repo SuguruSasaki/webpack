@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const src = path.join(__dirname, 'src');
 const dist = path.join(__dirname, 'dist');
@@ -42,6 +43,11 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
       },
+      {
+        test: /\.css/,
+        exclude: /node_modules/,
+        loader: [MiniCssExtractPlugin.loader, 'css-loader'],
+      },
     ],
   },
   devServer: {
@@ -54,6 +60,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(src, 'html/index.html'),
     }),
+    new MiniCssExtractPlugin(),
   ],
   devtool: 'source-map',
 };
