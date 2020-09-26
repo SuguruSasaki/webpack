@@ -7,15 +7,15 @@ const dist = path.join(__dirname, 'dist');
 
 module.exports = {
   mode: 'development', // developモードで起動します。
-  entry: path.resolve(src, 'index.ts'), // エントリファイル
+  entry: path.resolve(src, 'index.tsx'), // エントリファイル
   output: {
     filename: 'index.bundle.js', // 生成されるファイル名
     path: dist, // 生成先
   },
 
   resolve: {
-    modules: ['node_modules'], // import分にnode_modulesのパスを省略する
-    extensions: ['.js', '.jsx', 'ts', 'tsx'], // 拡張子を省略できる
+    modules: ['node_modules'], // import分に./node_modulesのパスを省略する
+    extensions: ['.ts', '.tsx', '.js', '.jsx'], // 拡張子を省略できる
   },
 
   module: {
@@ -49,6 +49,11 @@ module.exports = {
     hot: true, // hot-reload
     port: 3000,
   },
-  plugins: [new webpack.HotModuleReplacementPlugin(), new HtmlWebpackPlugin()],
-  devtool: 'cheap-module-eval-source-map',
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.resolve(src, 'html/index.html'),
+    }),
+  ],
+  devtool: 'source-map',
 };
