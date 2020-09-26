@@ -1,11 +1,12 @@
 export class Hello {
   constructor(name) {
+    this.name = name;
     this.say(name);
   }
 
-  say(name) {
-    console.log(`Hello ${name}`);
+  say() {
+    console.log(`Hello ${this.name}`);
   }
 }
 
-export default new Hello("Suguru sasaki");
+export default new Hello('Suguru sasaki');

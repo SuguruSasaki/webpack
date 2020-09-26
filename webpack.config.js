@@ -1,19 +1,21 @@
-const path = require("path");
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const src = path.join(__dirname, "src");
-const dist = path.join(__dirname, "dist");
+const src = path.join(__dirname, 'src');
+const dist = path.join(__dirname, 'dist');
 
 module.exports = {
-  mode: "development", // developモードで起動します。
-  entry: path.resolve(src, "js/index.js"), // エントリファイル
+  mode: 'development', // developモードで起動します。
+  entry: path.resolve(src, 'js/index.js'), // エントリファイル
   output: {
-    filename: "index.bundle.js", // 生成されるファイル名
+    filename: 'index.bundle.js', // 生成されるファイル名
     path: dist, // 生成先
   },
 
   resolve: {
-    modules: ["node_modules"], // import分にnode_modulesのパスを省略する
-    extensions: [".js", ".jsx"], // 拡張子を省略できる
+    modules: ['node_modules'], // import分にnode_modulesのパスを省略する
+    extensions: ['.js', '.jsx'], // 拡張子を省略できる
   },
 
   module: {
@@ -21,9 +23,21 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: "babel-loader",
+        enforce: 'pre', // babel-loaderより前に実行される
+        loader: 'eslint-loader',
+      },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
       },
     ],
   },
-  devtool: "cheap-module-eval-source-map",
+  devServer: {
+    contentBase: dist, // 開発サーバーを立ち上げるときのルートディレクトリ
+    hot: true, // hot-reload
+    port: 3000,
+  },
+  plugins: [new webpack.HotModuleReplacementPlugin(), new HtmlWebpackPlugin()],
+  devtool: 'cheap-module-eval-source-map',
 };
