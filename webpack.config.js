@@ -7,7 +7,7 @@ const dist = path.join(__dirname, 'dist');
 
 module.exports = {
   mode: 'development', // developモードで起動します。
-  entry: path.resolve(src, 'js/index.js'), // エントリファイル
+  entry: path.resolve(src, 'index.ts'), // エントリファイル
   output: {
     filename: 'index.bundle.js', // 生成されるファイル名
     path: dist, // 生成先
@@ -15,7 +15,7 @@ module.exports = {
 
   resolve: {
     modules: ['node_modules'], // import分にnode_modulesのパスを省略する
-    extensions: ['.js', '.jsx'], // 拡張子を省略できる
+    extensions: ['.js', '.jsx', 'ts', 'tsx'], // 拡張子を省略できる
   },
 
   module: {
@@ -25,6 +25,17 @@ module.exports = {
         exclude: /node_modules/,
         enforce: 'pre', // babel-loaderより前に実行される
         loader: 'eslint-loader',
+      },
+      {
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        enforce: 'pre',
+        loader: 'awesome-typescript-loader',
+      },
+      {
+        test: /\.js$/,
+        enforce: 'pre',
+        loader: 'source-map-loader',
       },
       {
         test: /\.(js|jsx)$/,
