@@ -4,24 +4,16 @@ const src = path.join(__dirname, "src");
 const dist = path.join(__dirname, "dist");
 
 module.exports = {
-  // developモードで起動します。
-  mode: "development",
-
-  // エントリファイル
-  entry: path.resolve(src, "js/index.js"),
-
+  mode: "development", // developモードで起動します。
+  entry: path.resolve(src, "js/index.js"), // エントリファイル
   output: {
-    // 生成されるファイル名
-    filename: "index.bundle.js",
-    // 生成先
-    path: dist,
+    filename: "index.bundle.js", // 生成されるファイル名
+    path: dist, // 生成先
   },
 
   resolve: {
-    // import分にnode_modulesのパスを省略する
-    modules: ["node_modules"],
-    // 拡張子を省略できる
-    extensions: [".js", ".jsx"],
+    modules: ["node_modules"], // import分にnode_modulesのパスを省略する
+    extensions: [".js", ".jsx"], // 拡張子を省略できる
   },
 
   module: {
